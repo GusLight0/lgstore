@@ -1,4 +1,4 @@
-import { MapPin, Phone, Mail, Instagram, Facebook, Twitter, Clock } from 'lucide-react';
+import { MapPin, Phone, Mail, Clock } from 'lucide-react';
 
 
 export default function Footer() {
@@ -21,7 +21,6 @@ export default function Footer() {
                 href="#"
                 className="p-2 bg-gray-800 hover:bg-yellow-600 rounded-lg transition-colors duration-200 hover:scale-110 transform"
               >
-                <Instagram className="h-5 w-5" />
               </a>
             </div>
           </div>
