@@ -13,8 +13,8 @@ export default function ProductCard({ product, onViewProduct }: ProductCardProps
     <div className="group relative bg-white rounded-2xl shadow-md hover:shadow-2xl transition-all duration-500 overflow-hidden">
       {/* Image Container */}
       <div className="relative overflow-hidden">
-        <img
-          src={product.image}
+        <img // Usar a primeira imagem do array
+          src={product.images[0] || ''} // Adicionado fallback para string vazia caso o array esteja vazio
           alt={product.name}
           className="w-full h-48 sm:h-56 lg:h-64 object-cover group-hover:scale-105 transition-transform duration-700"
         />

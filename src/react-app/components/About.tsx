@@ -1,5 +1,5 @@
 import { Shield, Award, Truck, Users } from 'lucide-react';
-import perfil from '../../../assets/img/foto-minha.png'
+import perfil from '../../../assets/img/meurosto.png'
 
 export default function About() {
   const features = [

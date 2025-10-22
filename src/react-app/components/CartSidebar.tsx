@@ -46,7 +46,7 @@ export default function CartSidebar({ isOpen, onClose }: CartSidebarProps) {
             <div className="flex-1 overflow-y-auto p-6 space-y-4">
               {cartItems.map(item => (
                 <div key={item.cartId} className="flex items-center space-x-4">
-                  <img src={item.image} alt={item.name} className="w-20 h-20 object-cover rounded-lg flex-shrink-0" />
+                  <img src={item.images[0] || ''} alt={item.name} className="w-20 h-20 object-cover rounded-lg flex-shrink-0" />
                   <div className="flex-1">
                     <h3 className="font-semibold text-gray-800">{item.name}</h3>
                     <p className="text-sm text-gray-500">Tamanho: {item.size}</p>

@@ -14,13 +14,20 @@ export default function ProductModal({ product, isOpen, onClose }: ProductModalP
   const { addToCartWithQuantity, toggleFavorite, isFavorite, isInCart } = useCart();
   const [selectedSize, setSelectedSize] = useState('M');
   const [quantity, setQuantity] = useState(1);
+  const [mainDisplayedImage, setMainDisplayedImage] = useState<string>(''); // Novo estado para a imagem principal
 
   useEffect(() => {
     if (product) {
       const defaultSize = product.availableSizes?.[0] ?? 'M';
       setSelectedSize(defaultSize);
+      // Define a primeira imagem do array como a imagem principal ao carregar o produto
+      if (product.images && product.images.length > 0) {
+        setMainDisplayedImage(product.images[0]);
+      } else {
+        setMainDisplayedImage(''); // Limpa se não houver imagens
+      }
     }
-  }, [product]);
+  }, [product]); // Este useEffect é executado quando o 'product' muda
 
   if (!isOpen || !product) return null;
 
@@ -56,8 +63,8 @@ export default function ProductModal({ product, isOpen, onClose }: ProductModalP
 
         <div className="grid md:grid-cols-2 gap-8 p-6 overflow-y-auto max-h-[calc(90vh-100px)]">
           <div className="space-y-4">
-            <div className="relative">
-              <img src={product.image} alt={product.name} className="w-full h-96 object-cover rounded-2xl shadow-lg" />
+            <div className="relative aspect-square"> {/* Adicionado aspect-square para consistência */}
+              <img src={mainDisplayedImage} alt={product.name} className="w-full h-full object-cover rounded-2xl shadow-lg" />
               <button
                 onClick={() => toggleFavorite(product)}
                 className={`absolute top-4 right-4 p-3 rounded-full transition-all duration-200 ${
@@ -71,11 +78,18 @@ export default function ProductModal({ product, isOpen, onClose }: ProductModalP
             </div>
 
             <div className="grid grid-cols-4 gap-2">
-              {Array.from({ length: 4 }).map((_, i) => ( // Consider grid-cols-2 sm:grid-cols-4 for very small screens
-                <div key={i} className="aspect-square bg-gray-100 rounded-lg cursor-pointer hover:ring-2 hover:ring-yellow-400 transition-all duration-200">
-                  <img src={product.image} alt={`${product.name} ${i + 1}`} className="w-full h-full object-cover rounded-lg opacity-80 hover:opacity-100" />
+              {product.images.map((imgUrl, index) => (
+                <div
+                  key={index}
+                  className={`aspect-square bg-gray-100 rounded-lg cursor-pointer transition-all duration-200 ${
+                    imgUrl === mainDisplayedImage ? 'ring-2 ring-yellow-500' : 'hover:ring-2 hover:ring-yellow-400'
+                  }`}
+                  onClick={() => setMainDisplayedImage(imgUrl)}
+                >
+                  <img src={imgUrl} alt={`${product.name} ${index + 1}`} className="w-full h-full object-cover rounded-lg opacity-80 hover:opacity-100" />
                 </div>
               ))}
+              {/* Se houver menos de 4 imagens, você pode adicionar placeholders ou ajustar o grid */}
             </div>
           </div>
 

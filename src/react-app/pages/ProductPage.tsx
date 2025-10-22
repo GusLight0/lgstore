@@ -2,7 +2,7 @@ import { useParams, Link } from 'react-router-dom';
 import { ArrowLeft, ShoppingCart, Heart, Minus, Plus, Star, Shield, Truck, RotateCcw } from 'lucide-react';
 import { products } from '@/shared/products';
 import { useCart } from '@/react-app/contexts/CartContext';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Header from '@/react-app/components/Header';
 import Footer from '@/react-app/components/Footer';
 import CartSidebar from '@/react-app/components/CartSidebar'; // We will create this file next
@@ -13,6 +13,7 @@ export default function ProductPage() {
   const [selectedSize, setSelectedSize] = useState('M');
   const [quantity, setQuantity] = useState(1);
   const [searchQuery, setSearchQuery] = useState('');
+  const [mainDisplayedImage, setMainDisplayedImage] = useState<string>(''); // Novo estado para a imagem principal
   const [isCartOpen, setIsCartOpen] = useState(false);
 
   const product = products.find(p => p.id === Number(id));
@@ -49,6 +50,16 @@ export default function ProductPage() {
     );
   }
 
+  useEffect(() => {
+    if (product) {
+      // Define a primeira imagem do array como a imagem principal ao carregar o produto
+      if (product.images && product.images.length > 0) {
+        setMainDisplayedImage(product.images[0]);
+      } else {
+        setMainDisplayedImage(''); // Limpa se não houver imagens
+      }
+    }
+  }, [product]); // Este useEffect é executado quando o 'product' muda
   const sizes = ['P', 'M', 'G', 'GG'];
   const isFav = isFavorite(product.id);
   const inCart = isInCart(product.id, selectedSize);
@@ -93,9 +104,9 @@ export default function ProductPage() {
             {/* Images */}
             <div className="space-y-4">
               <div className="relative">
-                <img
-                  src={product.image}
-                  alt={product.name}
+                <img // Usar a imagem do estado
+                  src={mainDisplayedImage}
+                  alt={product.name} // Alt text permanece o mesmo
                   className="w-full h-96 lg:h-[500px] object-cover rounded-2xl shadow-2xl"
                 />
                 <button
@@ -111,16 +122,19 @@ export default function ProductPage() {
               </div>
 
               {/* Image Gallery */}
-              <div className="grid grid-cols-4 gap-4">
-                {Array.from({ length: 4 }).map((_, i) => (
+              <div className="grid grid-cols-4 gap-2"> {/* Ajustado gap para consistência com ProductModal */}
+                {product.images.map((imgUrl, index) => (
                   <div
-                    key={i}
-                    className="aspect-square bg-gray-100 rounded-xl cursor-pointer hover:ring-2 hover:ring-yellow-400 transition-all duration-200"
+                    key={index}
+                    className={`aspect-square bg-gray-100 rounded-lg cursor-pointer transition-all duration-200 ${ // Ajustado rounded para consistência
+                      imgUrl === mainDisplayedImage ? 'ring-2 ring-yellow-500' : 'hover:ring-2 hover:ring-yellow-400'
+                    }`}
+                    onClick={() => setMainDisplayedImage(imgUrl)} // Ao clicar, define esta imagem como a principal
                   >
                     <img
-                      src={product.image}
-                      alt={`${product.name} ${i + 1}`}
-                      className="w-full h-full object-cover rounded-xl opacity-80 hover:opacity-100 transition-opacity duration-200"
+                      src={imgUrl}
+                      alt={`${product.name} ${index + 1}`}
+                      className="w-full h-full object-cover rounded-lg opacity-80 hover:opacity-100" // Ajustado rounded para consistência
                     />
                   </div>
                 ))}
