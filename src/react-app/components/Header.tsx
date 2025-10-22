@@ -30,7 +30,7 @@ export default function Header({ onSearchChange, searchQuery, currentSection, on
             onClick={() => onSectionChange('home')}
           >
             <h1 className="text-2xl font-bold bg-gradient-to-r from-gray-900 via-yellow-600 to-yellow-400 bg-clip-text text-transparent group-hover:scale-105 transition-transform duration-200">
-              LG Store
+              LG's
             </h1>
             <p className="text-xs text-gray-600 -mt-1 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
               Moda Masculina Premium
