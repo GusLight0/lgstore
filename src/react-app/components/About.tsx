@@ -1,4 +1,5 @@
 import { Shield, Award, Truck, Users } from 'lucide-react';
+import perfil from '../../../assets/img/foto-minha.png'
 
 export default function About() {
   const features = [
@@ -127,7 +128,7 @@ export default function About() {
               {
                 name: 'Gustavo Soares',
                 role: 'Fundador & Design',
-                image: './assets/img/foto-minha.png'
+                image: {perfil}
               }
             ].map((member, index) => (
               <div
