@@ -71,7 +71,7 @@ export default function ProductModal({ product, isOpen, onClose }: ProductModalP
             </div>
 
             <div className="grid grid-cols-4 gap-2">
-              {Array.from({ length: 4 }).map((_, i) => (
+              {Array.from({ length: 4 }).map((_, i) => ( // Consider grid-cols-2 sm:grid-cols-4 for very small screens
                 <div key={i} className="aspect-square bg-gray-100 rounded-lg cursor-pointer hover:ring-2 hover:ring-yellow-400 transition-all duration-200">
                   <img src={product.image} alt={`${product.name} ${i + 1}`} className="w-full h-full object-cover rounded-lg opacity-80 hover:opacity-100" />
                 </div>
@@ -84,10 +84,10 @@ export default function ProductModal({ product, isOpen, onClose }: ProductModalP
               <span className="inline-block px-3 py-1 bg-yellow-100 text-yellow-800 text-sm font-medium rounded-full mb-3">
                 {product.category}
               </span>
-              <h1 className="text-3xl font-bold text-gray-900 mb-3">{product.name}</h1>
+              <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-3">{product.name}</h1>
 
               <div className="flex items-center space-x-4 mb-4">
-                <span className="text-3xl font-bold bg-gradient-to-r from-yellow-500 to-yellow-600 bg-clip-text text-transparent">
+                <span className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-yellow-500 to-yellow-600 bg-clip-text text-transparent">
                   R$ {product.price.toFixed(2)}
                 </span>
                 <div className="flex items-center space-x-1">
@@ -129,12 +129,12 @@ export default function ProductModal({ product, isOpen, onClose }: ProductModalP
                   <button onClick={() => setQuantity(Math.max(1, quantity - 1))} className="p-2 hover:bg-gray-100 transition-colors duration-200" aria-label="Diminuir quantidade">
                     <Minus className="h-4 w-4" />
                   </button>
-                  <span className="px-4 py-2 font-semibold">{quantity}</span>
+                  <span className="px-4 py-2 font-semibold flex-shrink-0">{quantity}</span>
                   <button onClick={() => setQuantity(quantity + 1)} className="p-2 hover:bg-gray-100 transition-colors duration-200" aria-label="Aumentar quantidade">
                     <Plus className="h-4 w-4" />
                   </button>
                 </div>
-                <span className="text-gray-600">Subtotal: R$ {(product.price * quantity).toFixed(2)}</span>
+                <span className="text-gray-600 text-sm sm:text-base break-words">Subtotal: R$ {(product.price * quantity).toFixed(2)}</span>
               </div>
             </div>
 

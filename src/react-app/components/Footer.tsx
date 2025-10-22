@@ -53,7 +53,7 @@ export default function Footer() {
               <div className="flex items-start space-x-3">
                 <MapPin className="h-5 w-5 text-yellow-400 mt-0.5 flex-shrink-0" />
                 <div>
-                  <p className="text-gray-300">
+                  <p className="text-gray-300 break-words">
                     Bequimão, rua 51, qd 55<br />
                     Liana Store, São Luís - MA<br />
                     CEP: 65062-470
@@ -63,12 +63,12 @@ export default function Footer() {
               
               <div className="flex items-center space-x-3">
                 <Phone className="h-5 w-5 text-yellow-400" />
-                <span className="text-gray-300">(98) 9 9185-6123 <br /><strong>RECOMENDADO</strong></span>
+                <span className="text-gray-300 break-words">(98) 9 9185-6123 <br /><strong>RECOMENDADO</strong></span>
               </div>
               
               <div className="flex items-center space-x-3">
                 <Mail className="h-5 w-5 text-yellow-400" />
-                <span className="text-gray-300">gle09062024@gmail.com</span>
+                <span className="text-gray-300 break-words">gle09062024@gmail.com</span>
               </div>
             </div>
           </div>

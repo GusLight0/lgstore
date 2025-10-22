@@ -51,8 +51,8 @@ export default function Hero({ onShopNow }: HeroProps) {
               </a>
             </div>
             
-            {/* Stats */}
-            <div className="grid grid-cols-3 gap-4 sm:gap-8 mt-8 lg:mt-12 pt-6 lg:pt-8 border-t border-white/10">
+            {/* Stats - Adjusted for better mobile responsiveness */}
+            <div className="grid grid-cols-2 xs:grid-cols-3 gap-4 sm:gap-8 mt-8 lg:mt-12 pt-6 lg:pt-8 border-t border-white/10">
               <div className="text-center">
                 <div className="text-xl sm:text-2xl font-bold text-yellow-400 mb-1">2025</div>
                 <div className="text-xs sm:text-sm text-gray-400">Loja Nova</div>

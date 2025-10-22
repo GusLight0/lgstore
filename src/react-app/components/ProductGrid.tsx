@@ -40,10 +40,10 @@ export default function ProductGrid({ searchQuery, onViewProduct }: ProductGridP
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-12">
-          <h2 className="text-4xl font-bold text-gray-900 mb-4">
+          <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
             Nossa <span className="bg-gradient-to-r from-yellow-500 to-yellow-600 bg-clip-text text-transparent">Coleção</span>
           </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+          <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto">
             Descubra nossa seleção exclusiva de camisas masculinas premium. 
             Cada peça é cuidadosamente escolhida para oferecer estilo, qualidade e conforto.
           </p>

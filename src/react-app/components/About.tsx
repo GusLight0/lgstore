@@ -36,8 +36,8 @@ export default function About() {
               Sobre a <span className="bg-gradient-to-r from-yellow-500 to-yellow-600 bg-clip-text text-transparent">LG Store</span>
             </h2>
             
-            <div className="space-y-6 text-gray-600 leading-relaxed">
-              <p className="text-lg">
+            <div className="space-y-6 text-gray-600 leading-relaxed text-base sm:text-lg">
+              <p>
                 A LG Store nasceu da paixão por oferecer moda masculina de alta qualidade 
                 com design sofisticado e preços justos. Acreditamos que todo homem merece 
                 se vestir bem e se sentir confiante.
