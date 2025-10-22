@@ -1,5 +1,6 @@
 import { Shield, Award, Truck, Users } from 'lucide-react';
 import perfil from '../../../assets/img/meurosto.png'
+import perfil2 from '../../../assets/img/segundorosto.png'
 
 export default function About() {
   const features = [
@@ -123,12 +124,17 @@ export default function About() {
             Nossa <span className="bg-gradient-to-r from-yellow-500 to-yellow-600 bg-clip-text text-transparent">Equipe</span>
           </h3>
           
-          <div className="grid md:grid-cols-1 gap-8 max-w-3xl mx-auto">
+          <div className="grid md:grid-cols-2 gap-8 max-w-2xl mx-auto">
             {[
               {
                 name: 'Gustavo Soares',
                 role: 'Fundador & Design',
-                image: perfil
+                image: perfil // Usando a importação direta
+              },
+              {
+                name: 'Lucas Emanuel',
+                role: 'Gerente de Vendas',
+                image: perfil2 // Usando a importação direta
               }
             ].map((member, index) => (
               <div
