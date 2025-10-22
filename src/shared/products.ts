@@ -6,6 +6,7 @@ export interface Product {
   description: string;
   image: string;
   category: string;
+  availableSizes?: string[]; // ex: ['P','M'] ou ['M']
 }
 
 export const products: Product[] = [
@@ -15,6 +16,7 @@ export const products: Product[] = [
     price: 89.90,
     description: "Camisa de malha premium em algodão, estilo streetwear. Perfeita para ocasiões estilosas e elegantes.",
     image: myProfile,
-    category: "Oversized Streetwear"
+    category: "Oversized Streetwear",
+    availableSizes: ['P', 'M']
   }
 ];

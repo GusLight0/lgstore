@@ -1,15 +1,15 @@
-import { useParams, Link } from 'react-router';
+import { useParams, Link } from 'react-router-dom';
 import { ArrowLeft, ShoppingCart, Heart, Minus, Plus, Star, Shield, Truck, RotateCcw } from 'lucide-react';
 import { products } from '@/shared/products';
 import { useCart } from '@/react-app/contexts/CartContext';
 import { useState } from 'react';
 import Header from '@/react-app/components/Header';
 import Footer from '@/react-app/components/Footer';
-import CartSidebar from '@/react-app/components/CartSidebar';
+import CartSidebar from '@/react-app/components/CartSidebar'; // We will create this file next
 
 export default function ProductPage() {
   const { id } = useParams();
-  const { addToCart, toggleFavorite, isFavorite, isInCart } = useCart();
+  const { addToCartWithQuantity, toggleFavorite, isFavorite, isInCart } = useCart();
   const [selectedSize, setSelectedSize] = useState('M');
   const [quantity, setQuantity] = useState(1);
   const [searchQuery, setSearchQuery] = useState('');
@@ -51,12 +51,10 @@ export default function ProductPage() {
 
   const sizes = ['P', 'M', 'G', 'GG'];
   const isFav = isFavorite(product.id);
-  const inCart = isInCart(product.id);
+  const inCart = isInCart(product.id, selectedSize);
 
   const handleAddToCart = () => {
-    for (let i = 0; i < quantity; i++) {
-      addToCart(product);
-    }
+    addToCartWithQuantity({ ...product, size: selectedSize }, quantity);
     setQuantity(1);
   };
 

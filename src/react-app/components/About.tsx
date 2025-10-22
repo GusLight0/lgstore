@@ -128,7 +128,7 @@ export default function About() {
               {
                 name: 'Gustavo Soares',
                 role: 'Fundador & Design',
-                image: {perfil}
+                image: perfil
               }
             ].map((member, index) => (
               <div
@@ -137,7 +137,7 @@ export default function About() {
               >
                 <div className="mb-4">
                   <img
-                    src={member.image.perfil}
+                    src={member.image}
                     alt={member.name}
                     className="w-24 h-24 rounded-full mx-auto object-cover group-hover:scale-110 transition-transform duration-300"
                   />
