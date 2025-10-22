@@ -1,4 +1,5 @@
 import { ArrowRight, Sparkles } from 'lucide-react';
+import logoDoSite from '../../../assets/img/logo-site.jpeg'
 
 interface HeroProps {
   onShopNow: () => void;
@@ -71,7 +72,7 @@ export default function Hero({ onShopNow }: HeroProps) {
           <div className="relative">
             <div className="relative z-10">
               <img
-                src="../../assets/img/logo-site.jpeg"
+                src={logoDoSite}
                 alt="Logo do nosso site LG"
                 className="w-full h-[400px] sm:h-[500px] lg:h-[600px] object-cover rounded-2xl shadow-2xl"
               />
