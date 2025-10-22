@@ -14,6 +14,6 @@ export const products: Product[] = [
     price: 89.90,
     description: "Camisa social premium em algodão egípcio, corte slim fit. Perfeita para ocasiões formais e casuais elegantes.",
     image: "https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=400&h=400&fit=crop&auto=format",
-    category: "malhaPremium"
+    category: "Oversized Streetwear"
   }
 ];

@@ -144,7 +144,7 @@ export default function ProductPage() {
                     {Array.from({ length: 5 }).map((_, i) => (
                       <Star key={i} className="h-5 w-5 fill-yellow-400 text-yellow-400" />
                     ))}
-                    <span className="text-gray-600 ml-2">(4.8 - 142 avaliações)</span>
+                    <span className="text-gray-600 ml-2">(sem avaliação)</span>
                   </div>
                 </div>
                 <p className="text-lg text-gray-600 leading-relaxed">{product.description}</p>
@@ -228,8 +228,8 @@ export default function ProductPage() {
                       <Truck className="h-6 w-6 text-yellow-600" />
                     </div>
                     <div>
-                      <p className="font-semibold text-gray-900">Frete Grátis</p>
-                      <p className="text-sm text-gray-600">Acima de R$ 150</p>
+                      <p className="font-semibold text-gray-900">Não temos entrega</p>
+                      <p className="text-sm text-gray-600">Tenha um boa experiência!!</p>
                     </div>
                   </div>
                   <div className="flex items-center space-x-4">
@@ -237,7 +237,7 @@ export default function ProductPage() {
                       <RotateCcw className="h-6 w-6 text-yellow-600" />
                     </div>
                     <div>
-                      <p className="font-semibold text-gray-900">Troca em 30 dias</p>
+                      <p className="font-semibold text-gray-900">Troca apenas com nota fiscal</p>
                       <p className="text-sm text-gray-600">Sem complicação</p>
                     </div>
                   </div>
@@ -246,8 +246,8 @@ export default function ProductPage() {
                       <Star className="h-6 w-6 text-yellow-600" />
                     </div>
                     <div>
-                      <p className="font-semibold text-gray-900">Avaliação 4.8/5</p>
-                      <p className="text-sm text-gray-600">142 avaliações</p>
+                      <p className="font-semibold text-gray-900">Sem avaliação</p>
+                      <p className="text-sm text-gray-600">seja o primeiro a comprar!</p>
                     </div>
                   </div>
                 </div>

@@ -104,7 +104,7 @@ export default function ProductModal({ product, isOpen, onClose }: ProductModalP
                   {Array.from({ length: 5 }).map((_, i) => (
                     <Star key={i} className="h-4 w-4 fill-yellow-400 text-yellow-400" />
                   ))}
-                  <span className="text-gray-600 text-sm ml-2">(4.8 - 142 avaliações)</span>
+                  <span className="text-gray-600 text-sm ml-2">(Sem avaliações)</span>
                 </div>
               </div>
               <p className="text-gray-600 leading-relaxed">{product.description}</p>
@@ -187,15 +187,15 @@ export default function ProductModal({ product, isOpen, onClose }: ProductModalP
                 </div>
                 <div className="flex items-center space-x-3">
                   <Truck className="h-5 w-5 text-yellow-500" />
-                  <span className="text-sm text-gray-600">Frete Grátis</span>
+                  <span className="text-sm text-gray-600">Apenas retirada</span>
                 </div>
                 <div className="flex items-center space-x-3">
                   <RotateCcw className="h-5 w-5 text-yellow-500" />
-                  <span className="text-sm text-gray-600">Troca em 30 dias</span>
+                  <span className="text-sm text-gray-600">Troca apenas com nota fiscal</span>
                 </div>
                 <div className="flex items-center space-x-3">
                   <Star className="h-5 w-5 text-yellow-500" />
-                  <span className="text-sm text-gray-600">Avaliação 4.8/5</span>
+                  <span className="text-sm text-gray-600">Sem avaliação</span>
                 </div>
               </div>
             </div>

@@ -183,3 +183,7 @@ select:focus {
     background-position: 0% 50%;
   }
 }
+
+#interface {
+  overflow-y: auto;
+}

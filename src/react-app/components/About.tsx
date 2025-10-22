@@ -83,11 +83,11 @@ export default function About() {
               <div className="grid grid-cols-2 gap-4 text-center">
                 <div>
                   <div className="text-2xl font-bold text-yellow-600">2025</div>
-                  <div className="text-sm text-gray-600">Fundação</div>
+                  <div className="text-sm text-gray-600">Recentemente</div>
                 </div>
                 <div>
                   <div className="text-2xl font-bold text-yellow-600">100%</div>
-                  <div className="text-sm text-gray-600">Satisfação</div>
+                  <div className="text-sm text-gray-600">Aprovado</div>
                 </div>
               </div>
             </div>
