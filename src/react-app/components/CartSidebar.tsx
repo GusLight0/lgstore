@@ -1,3 +1,4 @@
+import type { MouseEvent } from 'react';
 import { X, Trash2, Minus, Plus } from 'lucide-react';
 import { useCart } from '@/react-app/contexts/CartContext';
 
@@ -9,7 +10,7 @@ interface CartSidebarProps {
 export default function CartSidebar({ isOpen, onClose }: CartSidebarProps) {
   const { cartItems, removeFromCart, updateQuantity, getTotalPrice, clearCart } = useCart();
 
-  const handleOverlayClick = (e: React.MouseEvent) => {
+  const handleOverlayClick = (e: MouseEvent) => {
     if (e.target === e.currentTarget) {
       onClose();
     }
