@@ -21,6 +21,7 @@ export default {
         'slide-in-right': 'slide-in-right 0.5s ease-out forwards',
         'shine': 'shine 2s infinite',
         'gradient-shift': 'gradientShift 3s ease infinite',
+        'gradient-flow': 'gradient-flow 4s ease-in-out infinite',
       },
       keyframes: {
         fadeInUp: {
@@ -76,6 +77,14 @@ export default {
           },
           '100%': {
             backgroundPosition: '0% 50%',
+          },
+        },
+        'gradient-flow': {
+          '0%, 100%': {
+            backgroundPosition: '0% 50%',
+          },
+          '50%': {
+            backgroundPosition: '100% 50%',
           },
         },
       },

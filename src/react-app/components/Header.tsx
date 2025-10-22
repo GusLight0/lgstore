@@ -29,7 +29,7 @@ export default function Header({ onSearchChange, searchQuery, currentSection, on
             className="flex-shrink-0 cursor-pointer group"
             onClick={() => onSectionChange('home')}
           >
-            <h1 className="text-2xl font-bold bg-gradient-to-r from-gray-900 via-yellow-600 to-yellow-400 bg-clip-text text-transparent group-hover:scale-105 transition-transform duration-200">
+            <h1 className="text-2xl font-bold bg-gradient-to-r from-yellow-500 via-black to-yellow-500 bg-clip-text text-transparent bg-[length:200%_auto] animate-gradient-flow group-hover:scale-105 transition-transform duration-200">
               LG's
             </h1>
             <p className="text-xs text-gray-600 -mt-1 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
