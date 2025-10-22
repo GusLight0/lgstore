@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, ReactNode, useEffect } from 'react';
+import { createContext, useContext, useState, ReactNode, useEffect } from 'react';
 import { Product } from '@/shared/products';
 
 export type CartItem = Product & { quantity: number; size?: string; cartId: string };
