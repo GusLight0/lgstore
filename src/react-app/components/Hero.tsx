@@ -57,7 +57,7 @@ export default function Hero({ onShopNow }: HeroProps) {
                 <div className="text-xs sm:text-sm text-gray-400">Loja Nova</div>
               </div>
               <div className="text-center">
-                <div className="text-xl sm:text-2xl font-bold text-yellow-400 mb-1">100% Algodão</div>
+                <div className="text-xl sm:text-2xl font-bold text-yellow-400 mb-1">Algodão</div>
                 <div className="text-xs sm:text-sm text-gray-400">Tecido Premium</div>
               </div>
               <div className="text-center">
@@ -71,8 +71,8 @@ export default function Hero({ onShopNow }: HeroProps) {
           <div className="relative">
             <div className="relative z-10">
               <img
-                src="./assets/img/logo-site.jpeg"
-                alt="Homem elegante usando camisa premium"
+                src=".../assets/img/logo-site.jpeg"
+                alt="Logo do nosso site LG"
                 className="w-full h-[400px] sm:h-[500px] lg:h-[600px] object-cover rounded-2xl shadow-2xl"
               />
               
