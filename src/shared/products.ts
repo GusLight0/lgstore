@@ -32,6 +32,13 @@ import preta3 from '../../assets/img/preto (3).jpeg';
 import preta4 from '../../assets/img/preto (4).jpeg';
 import preta5 from '../../assets/img/preto (5).jpeg';
 
+import brancaIncial from '../../assets/img/brancaInicial.jpeg';
+import azulInicial from '../../assets/img/azulInicial.jpeg';
+import pretaInicial from '../../assets/img/pretaInicial.jpeg';
+import verdeInicial from '../../assets/img/verdeInicial.jpeg';
+import cinzaInicial from '../../assets/img/cinzaInicial.jpeg';
+import begeInicial from '../../assets/img/bejeInicial.jpeg';
+
 export interface Product {
   id: number;
   name: string;
@@ -48,7 +55,7 @@ export const products: Product[] = [
     name: "Camisa Branca Streetwear",
     price: 69.90,
     description: "Camisa de malhão premium em algodão, estilo streetwear. Perfeita para ocasiões estilosas e elegantes.",
-    images: [ branca3, branca1, branca2, branca ],
+    images: [ brancaIncial, branca3, branca1, branca2, branca ],
     category: "Streetwear",
     availableSizes: ['M']
   },
@@ -57,7 +64,7 @@ export const products: Product[] = [
     name: "Camisa Verde-Escuro Streetwear",
     price: 69.90,
     description: "Camisa de malhão premium em algodão, estilo streetwear. Perfeita para ocasiões estilosas e elegantes.",
-    images: [ verdeEscuro5, verdeEscuro3, verdeEscuro2, verdeEscuro4, verdeEscuro ],
+    images: [ verdeInicial ,verdeEscuro5, verdeEscuro3, verdeEscuro2, verdeEscuro4, verdeEscuro ],
     category: "Streetwear",
     availableSizes: ['GG']
   },
@@ -66,7 +73,7 @@ export const products: Product[] = [
     name: "Camisa Preta Streetwear",
     price: 69.90,
     description: "Camisa Preta de malhão premium em algodão, estilo streetwear. Perfeita para ocasiões estilosas e elegantes.",
-    images: [ preta, preta3, preta2, preta4, preta5 ],
+    images: [ pretaInicial, preta, preta3, preta2, preta4, preta5 ],
     category: "Streetwear",
     availableSizes: ['G']
   },
@@ -75,7 +82,7 @@ export const products: Product[] = [
     name: "Camisa Azul Streetwear",
     price: 69.90,
     description: "Camisa Azul de malhão premium em algodão, estilo streetwear. Perfeita para ocasiões estilosas e elegantes.",
-    images: [ azul6, azul3, azul2, azul5, azul4, azul7 ],
+    images: [ azulInicial , azul6, azul3, azul2, azul5, azul4, azul7 ],
     category: "Streetwear",
     availableSizes: ['M']
   },
@@ -84,7 +91,7 @@ export const products: Product[] = [
     name: "Camisa Cinza Streetwear",
     price: 69.90,
     description: "Camisa Cinza de malhão premium em algodão, estilo streetwear. Perfeita para ocasiões estilosas e elegantes.",
-    images: [ cinza, cinza2, cinza3 ],
+    images: [  cinzaInicial, cinza, cinza2, cinza3 ],
     category: "Streetwear",
     availableSizes: ['M']
   },
@@ -93,7 +100,7 @@ export const products: Product[] = [
     name: "Camisa Bege Streetwear",
     price: 69.90,
     description: "Camisa Bege de malhão premium em algodão, estilo streetwear. Perfeita para ocasiões estilosas e elegantes.",
-    images: [ beje5, beje2, beje4, beje, beje6 ],
+    images: [  begeInicial, beje5, beje2, beje4, beje, beje6 ],
     category: "Streetwear",
     availableSizes: ['G']
   }
