@@ -66,7 +66,7 @@ export default function ProductCard({ product, onViewProduct }: ProductCardProps
         </div>
         
         {/* Price Badge */}
-        <div className="absolute top-4 left-4 bg-gradient-to-r from-yellow-400 to-yellow-500 text-black px-3 py-1 rounded-full font-bold text-sm shadow-lg group-hover:from-yellow-500 group-hover:to-yellow-600 transition-all duration-300">
+        <div className="absolute top-4 left-4 bg-gradient-to-r from-yellow-400 to-yellow-500 text-black px-4 py-1.5 rounded-full font-bold text-base shadow-lg group-hover:from-yellow-500 group-hover:to-yellow-600 transition-all duration-300">
           R$ {product.price.toFixed(2)}
         </div>
       </div>
