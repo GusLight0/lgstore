@@ -15,6 +15,8 @@ export default function ProductModal({ product, isOpen, onClose }: ProductModalP
   const [selectedSize, setSelectedSize] = useState('M');
   const [quantity, setQuantity] = useState(1);
   const [mainDisplayedImage, setMainDisplayedImage] = useState<string>(''); // Novo estado para a imagem principal
+  const [isZooming, setIsZooming] = useState(false);
+  const [zoomPosition, setZoomPosition] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
     if (product) {
@@ -45,6 +47,17 @@ export default function ProductModal({ product, isOpen, onClose }: ProductModalP
     if (e.target === e.currentTarget) onClose();
   };
 
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const { left, top, width, height } = e.currentTarget.getBoundingClientRect();
+    const x = ((e.clientX - left) / width) * 100;
+    const y = ((e.clientY - top) / height) * 100;
+    setZoomPosition({ x, y });
+  };
+
+  const handleImageClick = () => {
+    setIsZooming(!isZooming);
+  };
+
   return (
     <div
       className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4"
@@ -63,8 +76,20 @@ export default function ProductModal({ product, isOpen, onClose }: ProductModalP
 
         <div className="grid md:grid-cols-2 gap-8 p-6 overflow-y-auto max-h-[calc(90vh-100px)]">
           <div className="space-y-4">
-            <div className="relative aspect-square"> {/* Adicionado aspect-square para consistência */}
-              <img src={mainDisplayedImage} alt={product.name} className="w-full h-full object-cover rounded-2xl shadow-lg" />
+            <div
+              className="relative aspect-square overflow-hidden rounded-2xl shadow-lg cursor-pointer"
+              onClick={handleImageClick}
+              onMouseMove={handleMouseMove}
+            >
+              <img
+                src={mainDisplayedImage}
+                alt={product.name}
+                className="w-full h-full object-cover transition-transform duration-300 ease-in-out"
+                style={{
+                  transform: isZooming ? 'scale(2)' : 'scale(1)',
+                  transformOrigin: `${zoomPosition.x}% ${zoomPosition.y}%`,
+                  cursor: isZooming ? 'zoom-out' : 'zoom-in',
+                }} />
               <button
                 onClick={() => toggleFavorite(product)}
                 className={`absolute top-4 right-4 p-3 rounded-full transition-all duration-200 ${

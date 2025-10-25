@@ -15,9 +15,7 @@ export default function Home() {
   const [isProductModalOpen, setIsProductModalOpen] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
 
-  const handleShopNow = () => {
-    setCurrentSection('products');
-    
+  const handleShopNow = () => {    
     // Smooth scroll to products section
     const element = document.getElementById('products');
     if (element) {
@@ -26,31 +24,11 @@ export default function Home() {
   };
 
   const handleSectionChange = (section: string) => {
-    setCurrentSection(section);
-    
     // Smooth scroll to section
     const element = document.getElementById(section);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
     }
-  };
-
-  const handleViewProduct = (product: Product) => {
-    setSelectedProduct(product);
-    setIsProductModalOpen(true);
-  };
-
-  const handleCloseProductModal = () => {
-    setIsProductModalOpen(false);
-    setSelectedProduct(null);
-  };
-
-  const handleCartOpen = () => {
-    setIsCartOpen(true);
-  };
-
-  const handleCartClose = () => {
-    setIsCartOpen(false);
   };
 
   // Observer para detectar qual seção está ativa baseado no scroll
@@ -92,6 +70,24 @@ export default function Home() {
     };
   }, []);
 
+  const handleViewProduct = (product: Product) => {
+    setSelectedProduct(product);
+    setIsProductModalOpen(true);
+  };
+
+  const handleCloseProductModal = () => {
+    setIsProductModalOpen(false);
+    setSelectedProduct(null);
+  };
+
+  const handleCartOpen = () => {
+    setIsCartOpen(true);
+  };
+
+  const handleCartClose = () => {
+    setIsCartOpen(false);
+  };
+
   return (
     <div className="min-h-screen bg-white">
       <Header 
@@ -107,12 +103,10 @@ export default function Home() {
         <section id="home" className="pt-16">
           <Hero onShopNow={handleShopNow} />
         </section>
-
         {/* Products Section */}
         <section id="products">
           <ProductGrid searchQuery={searchQuery} onViewProduct={handleViewProduct} />
         </section>
-
         {/* About Section */}
         <section id="about">
           <About />

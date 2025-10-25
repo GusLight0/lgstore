@@ -38,7 +38,7 @@ export default function Header({ onSearchChange, searchQuery, currentSection, on
           </div>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex space-x-8">
+          <nav className="hidden md:flex items-center space-x-8">
             {sections.map((section) => (
               <button
                 key={section.id}
