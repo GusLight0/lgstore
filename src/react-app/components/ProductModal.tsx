@@ -12,31 +12,43 @@ interface ProductModalProps {
 
 export default function ProductModal({ product, isOpen, onClose }: ProductModalProps) {
   const { addToCartWithQuantity, toggleFavorite, isFavorite, isInCart } = useCart();
-  const [selectedSize, setSelectedSize] = useState('M');
+  const [selectedSize, setSelectedSize] = useState('');
   const [quantity, setQuantity] = useState(1);
   const [mainDisplayedImage, setMainDisplayedImage] = useState<string>(''); // Novo estado para a imagem principal
   const [isZooming, setIsZooming] = useState(false);
+  const [isOutOfStock, setIsOutOfStock] = useState(false);
   const [zoomPosition, setZoomPosition] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
     if (product) {
-      const defaultSize = product.availableSizes?.[0] ?? 'M';
-      setSelectedSize(defaultSize);
       // Define a primeira imagem do array como a imagem principal ao carregar o produto
       if (product.images && product.images.length > 0) {
         setMainDisplayedImage(product.images[0]);
       } else {
         setMainDisplayedImage(''); // Limpa se não houver imagens
       }
+
+      // Verifica se o produto está sem estoque
+      const hasStock = product.stockBySize && Object.values(product.stockBySize).some(stock => stock > 0);
+      setIsOutOfStock(!hasStock);
+
+      if (hasStock) {
+        // Define um tamanho padrão que tenha estoque
+        const firstAvailableSize = Object.keys(product.stockBySize || {}).find(size => (product.stockBySize?.[size] ?? 0) > 0);
+        setSelectedSize(firstAvailableSize || '');
+      } else {
+        setSelectedSize('');
+      }
     }
   }, [product]); // Este useEffect é executado quando o 'product' muda
 
   if (!isOpen || !product) return null;
 
-  const sizesToDisplay = product.availableSizes && product.availableSizes.length > 0 ? product.availableSizes : ['P', 'M', 'G', 'GG'];
+  const allSizes = ['P', 'M', 'G', 'GG'];
   const isFav = isFavorite(product.id); // Correctly uses isFavorite from context
   const inCartWithSize = isInCart(product.id, selectedSize); // Uses isInCart from context
   
+  const stockForSelectedSize = product.stockBySize?.[selectedSize] ?? 0;
   const handleAddToCart = () => {
     const itemToAdd = { ...product, size: selectedSize };
     addToCartWithQuantity(itemToAdd, quantity);
@@ -142,23 +154,31 @@ export default function ProductModal({ product, isOpen, onClose }: ProductModalP
 
             <div>
               <h3 className="text-lg font-semibold text-gray-900 mb-3">Tamanho</h3>
-              <div className="flex flex-wrap gap-2">
-                {sizesToDisplay.map((size) => {
-                  return (
-                    <button
-                      key={size}
-                      onClick={() => setSelectedSize(size)}
-                      className={`py-3 px-4 border-2 rounded-lg font-semibold transition-all duration-200 ${
-                        selectedSize === size ? 'border-yellow-500 bg-yellow-50 text-yellow-600' : 'border-gray-300 text-gray-600'
-                      } hover:border-yellow-400`}
-                      // No need for disabled state here, as we only render available sizes
-                      // If a product has no availableSizes, it will default to P, M, G, GG
-                    >
-                      {size}
-                    </button>
-                  );
-                })}
-              </div>
+              {isOutOfStock ? (
+                <div className="p-3 bg-red-50 border border-red-200 rounded-lg text-center">
+                  <p className="font-semibold text-red-600">Produto Esgotado</p>
+                </div>
+              ) : (
+                <div className="flex flex-wrap gap-2">
+                  {allSizes.map((size) => {
+                    return (
+                      <button
+                        key={size}
+                        onClick={() => {
+                          setSelectedSize(size);
+                          setQuantity(1); // Reseta a quantidade ao trocar de tamanho
+                        }}
+                        disabled={!product.stockBySize || (product.stockBySize[size] ?? 0) === 0}
+                        className={`py-3 px-4 border-2 rounded-lg font-semibold transition-all duration-200 ${
+                          selectedSize === size ? 'border-yellow-500 bg-yellow-50 text-yellow-600' : 'border-gray-300 text-gray-600'
+                        } hover:border-yellow-400 disabled:bg-gray-100 disabled:text-gray-400 disabled:cursor-not-allowed`}
+                       >
+                        {size}
+                      </button>
+                    );
+                  })}
+                </div>
+              )}
             </div>
 
             <div>
@@ -169,7 +189,11 @@ export default function ProductModal({ product, isOpen, onClose }: ProductModalP
                     <Minus className="h-4 w-4" />
                   </button>
                   <span className="px-4 py-2 font-semibold flex-shrink-0">{quantity}</span>
-                  <button onClick={() => setQuantity(quantity + 1)} className="p-2 hover:bg-gray-100 transition-colors duration-200" aria-label="Aumentar quantidade">
+                  <button 
+                    onClick={() => setQuantity(quantity + 1)}
+                    disabled={quantity >= stockForSelectedSize}
+                    className="p-2 hover:bg-gray-100 transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed" aria-label="Aumentar quantidade"
+                  >
                     <Plus className="h-4 w-4" />
                   </button>
                 </div>
@@ -180,10 +204,13 @@ export default function ProductModal({ product, isOpen, onClose }: ProductModalP
             <div className="space-y-3">
               <button
                 onClick={handleAddToCart}
-                className="w-full flex items-center justify-center space-x-2 bg-gradient-to-r from-yellow-500 to-yellow-600 text-black font-semibold py-4 px-6 rounded-xl hover:from-yellow-600 hover:to-yellow-700 transition-all duration-200 transform hover:scale-105 shadow-lg"
+                disabled={isOutOfStock || !selectedSize}
+                className="w-full flex items-center justify-center space-x-2 bg-gradient-to-r from-yellow-500 to-yellow-600 text-black font-semibold py-4 px-6 rounded-xl hover:from-yellow-600 hover:to-yellow-700 transition-all duration-200 transform hover:scale-105 shadow-lg disabled:from-gray-300 disabled:to-gray-400 disabled:text-gray-600 disabled:cursor-not-allowed disabled:transform-none disabled:shadow-md"
               >
                 <ShoppingCart className="h-5 w-5" />
-                <span>{inCartWithSize ? 'Adicionar Mais ao Carrinho' : 'Adicionar ao Carrinho'}</span>
+                <span>
+                  {isOutOfStock ? 'Indisponível' : (inCartWithSize ? 'Adicionar Mais' : 'Adicionar ao Carrinho')}
+                </span>
               </button>
 
               <button
@@ -192,7 +219,8 @@ export default function ProductModal({ product, isOpen, onClose }: ProductModalP
                   const whatsappUrl = `https://wa.me/5598991856123?text=${encodeURIComponent(message)}`;
                   window.open(whatsappUrl, '_blank');
                 }}
-                className="w-full border-2 border-gray-300 text-gray-700 font-semibold py-4 px-6 rounded-xl hover:border-gray-400 hover:bg-gray-50 transition-all duration-200"
+                disabled={isOutOfStock || !selectedSize}
+                className="w-full border-2 border-gray-300 text-gray-700 font-semibold py-4 px-6 rounded-xl hover:border-gray-400 hover:bg-gray-50 transition-all duration-200 disabled:border-gray-300 disabled:bg-gray-100 disabled:text-gray-400 disabled:cursor-not-allowed"
               >
                 Comprar Agora
               </button>

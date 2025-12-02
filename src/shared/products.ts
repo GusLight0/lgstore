@@ -46,7 +46,7 @@ export interface Product {
   description: string;
   images: string[];
   category: string;
-  availableSizes?: string[]; // ex: ['P','M'] ou ['M']
+  stockBySize?: { [size: string]: number }; // ex: { 'P': 10, 'M': 5, 'G': 0 }
 }
 
 export const products: Product[] = [
@@ -57,7 +57,7 @@ export const products: Product[] = [
     description: "Camisa de malhão premium em algodão, estilo streetwear. Perfeita para ocasiões estilosas e elegantes.",
     images: [ brancaIncial, branca3, branca1, branca2, branca ],
     category: "Streetwear",
-    availableSizes: ['M']
+    stockBySize: {} // Sem estoque
   },
   {
     id: 2,
@@ -66,7 +66,7 @@ export const products: Product[] = [
     description: "Camisa de malhão premium em algodão, estilo streetwear. Perfeita para ocasiões estilosas e elegantes.",
     images: [ verdeInicial ,verdeEscuro5, verdeEscuro3, verdeEscuro2, verdeEscuro4, verdeEscuro ],
     category: "Streetwear",
-    availableSizes: ['GG']
+    stockBySize: {}
   },
   {
     id: 3,
@@ -75,7 +75,7 @@ export const products: Product[] = [
     description: "Camisa Preta de malhão premium em algodão, estilo streetwear. Perfeita para ocasiões estilosas e elegantes.",
     images: [ pretaInicial, preta, preta3, preta2, preta4, preta5 ],
     category: "Streetwear",
-    availableSizes: ['G']
+    stockBySize: {}
   },
   {
     id: 4,
@@ -84,7 +84,7 @@ export const products: Product[] = [
     description: "Camisa Azul de malhão premium em algodão, estilo streetwear. Perfeita para ocasiões estilosas e elegantes.",
     images: [ azulInicial , azul6, azul3, azul2, azul5, azul4, azul7 ],
     category: "Streetwear",
-    availableSizes: ['M']
+    stockBySize: { 'M': 1 }
   },
   {
     id: 5,
@@ -93,7 +93,7 @@ export const products: Product[] = [
     description: "Camisa Cinza de malhão premium em algodão, estilo streetwear. Perfeita para ocasiões estilosas e elegantes.",
     images: [  cinzaInicial, cinza, cinza2, cinza3 ],
     category: "Streetwear",
-    availableSizes: ['M']
+    stockBySize: {}
   },
   {
     id: 6,
@@ -102,6 +102,6 @@ export const products: Product[] = [
     description: "Camisa Bege de malhão premium em algodão, estilo streetwear. Perfeita para ocasiões estilosas e elegantes.",
     images: [  begeInicial, beje5, beje2, beje4, beje, beje6 ],
     category: "Streetwear",
-    availableSizes: ['G']
+    stockBySize: {} // Sem estoque
   }
 ];

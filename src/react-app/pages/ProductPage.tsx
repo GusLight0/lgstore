@@ -10,11 +10,12 @@ import CartSidebar from '@/react-app/components/CartSidebar'; // We will create 
 export default function ProductPage() {
   const { id } = useParams();
   const { addToCartWithQuantity, toggleFavorite, isFavorite, isInCart } = useCart();
-  const [selectedSize, setSelectedSize] = useState('M');
+  const [selectedSize, setSelectedSize] = useState('');
   const [quantity, setQuantity] = useState(1);
   const [searchQuery, setSearchQuery] = useState('');
   const [mainDisplayedImage, setMainDisplayedImage] = useState<string>(''); // Novo estado para a imagem principal
   const [isCartOpen, setIsCartOpen] = useState(false);
+  const [isOutOfStock, setIsOutOfStock] = useState(false);
 
   const product = products.find(p => p.id === Number(id));
 
@@ -58,12 +59,24 @@ export default function ProductPage() {
       } else {
         setMainDisplayedImage(''); // Limpa se não houver imagens
       }
+      // Verifica se o produto está sem estoque
+      const hasStock = product.stockBySize && Object.values(product.stockBySize).some(stock => stock > 0);
+      if (!hasStock) {
+        setIsOutOfStock(true);
+        setSelectedSize(''); // Limpa o tamanho selecionado
+      } else {
+        // Define um tamanho padrão que tenha estoque
+        const firstAvailableSize = Object.keys(product.stockBySize || {}).find(size => (product.stockBySize?.[size] ?? 0) > 0);
+        setSelectedSize(firstAvailableSize || '');
+        setIsOutOfStock(false);
+      }
     }
   }, [product]); // Este useEffect é executado quando o 'product' muda
   const sizes = ['P', 'M', 'G', 'GG'];
   const isFav = isFavorite(product.id);
   const inCart = isInCart(product.id, selectedSize);
 
+  const stockForSelectedSize = product.stockBySize?.[selectedSize] ?? 0;
   const handleAddToCart = () => {
     addToCartWithQuantity({ ...product, size: selectedSize }, quantity);
     setQuantity(1);
@@ -165,21 +178,31 @@ export default function ProductPage() {
               {/* Size Selection */}
               <div>
                 <h3 className="text-xl font-semibold text-gray-900 mb-4">Tamanho</h3>
-                <div className="grid grid-cols-4 gap-3">
-                  {sizes.map((size) => (
-                    <button
-                      key={size}
-                      onClick={() => setSelectedSize(size)}
-                      className={`py-4 px-6 border-2 rounded-xl font-semibold transition-all duration-200 ${
-                        selectedSize === size
-                          ? 'border-yellow-500 bg-yellow-50 text-yellow-600'
-                          : 'border-gray-300 text-gray-600 hover:border-yellow-400'
-                      }`}
-                    >
-                      {size}
-                    </button>
-                  ))}
-                </div>
+                {isOutOfStock ? (
+                  <div className="p-4 bg-red-50 border border-red-200 rounded-xl text-center">
+                    <p className="font-semibold text-red-600">Produto Esgotado</p>
+                  </div>
+                ) : (
+                  <div className="grid grid-cols-4 gap-3">
+                    {sizes.map((size) => (
+                      <button
+                        key={size}
+                        onClick={() => {
+                          setSelectedSize(size);
+                          setQuantity(1); // Reseta a quantidade ao trocar de tamanho
+                        }}
+                        disabled={!product.stockBySize || (product.stockBySize[size] ?? 0) === 0}
+                        className={`py-4 px-6 border-2 rounded-xl font-semibold transition-all duration-200 ${
+                          selectedSize === size
+                            ? 'border-yellow-500 bg-yellow-50 text-yellow-600'
+                            : 'border-gray-300 text-gray-600 hover:border-yellow-400 disabled:bg-gray-100 disabled:text-gray-400 disabled:cursor-not-allowed'
+                        }`}
+                      >
+                        {size}
+                      </button>
+                    ))}
+                  </div>
+                )}
               </div>
 
               {/* Quantity */}
@@ -196,7 +219,8 @@ export default function ProductPage() {
                     <span className="px-6 py-3 font-semibold text-lg">{quantity}</span>
                     <button
                       onClick={() => setQuantity(quantity + 1)}
-                      className="p-3 hover:bg-gray-100 transition-colors duration-200"
+                      disabled={quantity >= stockForSelectedSize}
+                      className="p-3 hover:bg-gray-100 transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
                     >
                       <Plus className="h-5 w-5" />
                     </button>
@@ -211,13 +235,19 @@ export default function ProductPage() {
               <div className="space-y-4">
                 <button
                   onClick={handleAddToCart}
-                  className="w-full flex items-center justify-center space-x-3 bg-gradient-to-r from-yellow-500 to-yellow-600 text-black font-semibold py-5 px-8 rounded-xl hover:from-yellow-600 hover:to-yellow-700 transition-all duration-200 transform hover:scale-105 shadow-lg hover:shadow-xl"
+                  disabled={isOutOfStock || !selectedSize}
+                  className="w-full flex items-center justify-center space-x-3 bg-gradient-to-r from-yellow-500 to-yellow-600 text-black font-semibold py-5 px-8 rounded-xl hover:from-yellow-600 hover:to-yellow-700 transition-all duration-200 transform hover:scale-105 shadow-lg hover:shadow-xl disabled:from-gray-300 disabled:to-gray-400 disabled:text-gray-600 disabled:cursor-not-allowed disabled:transform-none disabled:shadow-md"
                 >
                   <ShoppingCart className="h-6 w-6" />
-                  <span className="text-lg">{inCart ? 'Adicionar Mais ao Carrinho' : 'Adicionar ao Carrinho'}</span>
+                  <span className="text-lg">
+                    {isOutOfStock ? 'Produto Indisponível' : (inCart ? 'Adicionar Mais ao Carrinho' : 'Adicionar ao Carrinho')}
+                  </span>
                 </button>
                 
-                <button className="w-full border-2 border-gray-300 text-gray-700 font-semibold py-5 px-8 rounded-xl hover:border-gray-400 hover:bg-gray-50 transition-all duration-200 text-lg">
+                <button
+                  disabled={isOutOfStock || !selectedSize}
+                  className="w-full border-2 border-gray-300 text-gray-700 font-semibold py-5 px-8 rounded-xl hover:border-gray-400 hover:bg-gray-50 transition-all duration-200 text-lg disabled:border-gray-300 disabled:bg-gray-100 disabled:text-gray-400 disabled:cursor-not-allowed"
+                >
                   Comprar Agora
                 </button>
               </div>
