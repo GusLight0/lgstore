@@ -141,12 +141,23 @@ export default function ProductModal({ product, isOpen, onClose }: ProductModalP
                 <span className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-yellow-500 to-yellow-600 bg-clip-text text-transparent">
                   R$ {product.price.toFixed(2)}
                 </span>
-                <div className="flex items-center space-x-1">
-                  {Array.from({ length: 5 }).map((_, i) => (
-                    <Star key={i} className="h-4 w-4 fill-yellow-400 text-yellow-400" />
-                  ))}
-                  <span className="text-gray-600 text-sm ml-2">(Sem avaliações)</span>
-                </div>
+                {product.rating && product.reviewsCount ? (
+                  <div className="flex items-center space-x-1">
+                    {Array.from({ length: 5 }, (_, i) => (
+                      <Star
+                        key={i}
+                        className={`h-4 w-4 ${
+                          (product.rating ?? 0) > i ? 'text-yellow-400 fill-yellow-400' : 'text-gray-300'
+                        }`}
+                      />
+                    ))}
+                    <span className="text-gray-600 text-sm ml-2">({product.reviewsCount} avaliações)</span>
+                  </div>
+                ) : (
+                  <div className="flex items-center">
+                     <span className="text-gray-500 text-sm ml-2">(Sem avaliações)</span>
+                  </div>
+                )}
               </div>
 
               <p className="text-gray-600 leading-relaxed">{product.description}</p>
@@ -243,7 +254,7 @@ export default function ProductModal({ product, isOpen, onClose }: ProductModalP
                 </div>
                 <div className="flex items-center space-x-3">
                   <Star className="h-5 w-5 text-yellow-500" />
-                  <span className="text-sm text-gray-600">Sem avaliação</span>
+                  <span className="text-sm text-gray-600">Estilosos & elegantes</span>
                 </div>
               </div>
             </div>
